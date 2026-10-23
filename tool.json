@@ -1,0 +1,10 @@
+{
+  "id": "w28",
+  "slug": "bot-hub",
+  "name": "机器人多账号管理后台",
+  "version": "0.1.36-campfire.1",
+  "repo": "campfire-code/bot-hub",
+  "license": "MIT",
+  "delivery": "docker",
+  "upstream": { "repo": "openilink/openilink-hub", "license": "MIT" }
+}

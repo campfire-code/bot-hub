@@ -1,3 +1,54 @@
+# 机器人多账号管理后台（OpeniLink Hub）
+
+> 篝火出品 · 收录于篝火 App 应用区 · 基于开源项目 [openilink/openilink-hub](https://github.com/openilink/openilink-hub)（MIT）
+
+> [!WARNING]
+> **风险提示（中等）**：本工具基于微信 ClawBot 插件的 iLink 协议，上游自述为独立开发、与 iLink 官方团队无关联或授权，仅供学习交流与技术研究。用微信号对接第三方程序可能违反平台规则、存在**封号或功能被限制的风险**，也可能涉及侵权，使用后果自负。请自行评估，不要用于重要账号。
+
+用网页后台集中管理多个微信机器人：扫码绑定微信号，查看状态和消息链路，通过「应用市场」安装功能（对接飞书 / Slack / GitHub 等），也可用 WebSocket / Webhook 把消息转发给自己的服务。
+
+## 部署
+
+需要一台装好 Docker 的服务器或电脑（x86 与 ARM 均可）。上游**没有 Windows 版**，Windows 用户请用 Docker（或 WSL2）。
+
+1. 到 [Releases](https://github.com/campfire-code/bot-hub/releases/latest) 下载 `docker-compose.yml` 和 `.env.example`，放在同一个目录，把 `.env.example` 改名为 `.env`。
+2. 编辑 `.env`：**必须**给 `SECRET` 填一段随机字符串（如 `openssl rand -hex 24`）；没填时 `docker compose up` 会直接报错，避免沿用上游的默认密钥。
+3. 运行 `docker compose up -d`，数据（SQLite 数据库）保存在名为 `bot-hub-data` 的 Docker 卷里。
+4. 浏览器打开 `http://localhost:9800`，注册账号（**第一个注册的账号自动成为管理员**），然后扫码绑定微信号。
+
+部署到服务器或域名时，把 `.env` 里的 `RP_ORIGIN` 改成浏览器实际访问的完整地址（如 `https://hub.example.com`），`RP_ID` 改成域名；Passkey 登录依赖这两项，必须与浏览器地址一致。需要 PostgreSQL、MinIO、GitHub / LinuxDo 登录等进阶配置，见下方上游文档的「环境变量」。
+
+## 前置条件
+
+- Docker（含 docker compose）。
+- 一个微信号，且该微信能使用 ClawBot 插件（上游文档称其为 2026 年 3 月推出的插件）；是否可用、是否有限制以微信官方为准，篝火未核实。
+- 界面为中文，上游文档中英混合。使用「AI 自动回复」等功能需要自己准备大模型接口，本工具不提供。
+- 上游还提供 24 小时窗口到期提醒（微信侧限制，见上游说明），长时间不互动的机器人会掉线。
+
+## 验收用例
+
+| 操作 | 应得到 |
+|---|---|
+| `.env` 里不填 `SECRET`，运行 `docker compose up -d` | 报错「请先把 .env.example 改名为 .env，并填写 SECRET」，不启动 |
+| 填好 `SECRET` 后 `docker compose up -d`，再访问 `http://localhost:9800/api/info` | 返回 JSON（含 `registration_enabled`），`docker logs bot-hub` 出现 `SQLite connected` 且不含 `SECRET` 的值 |
+| 浏览器打开 `http://localhost:9800` 并注册第一个账号 | 进入后台，该账号为管理员 |
+
+## 和上游的区别
+
+- 仅新增中文说明与篝火发布流程（`tool.json`、`.github/workflows/release.yml`、`campfire/` 部署文件），代码与上游一致，镜像用上游根目录的 `Dockerfile` 构建。
+- `campfire/docker-compose.yml` 使用单容器 + SQLite（上游「零配置」模式），并强制要求设置 `SECRET`；上游 `docker-compose.yml` 是带 PostgreSQL 与 MinIO 的开发配置。
+- 删除了上游的 GitHub 工作流（依赖上游的密钥）。上游的 Release 只有 macOS / Linux 的命令行二进制包，没有安装包，所以篝火选择 Docker 交付。
+
+## 归属与许可证
+
+上游版权归原作者所有，按 MIT 许可证分发，LICENSE 保留。
+
+---
+
+以下为上游原文。
+
+---
+
 > **免责声明**：本项目基于公开的 iLink 协议进行独立开发，仅供学习交流与技术研究使用。项目与 iLink 协议的官方团队无任何关联或授权关系。若相关权利方认为本项目存在侵权，请通过 Issue 联系我们，我们将在确认后第一时间予以下架处理。
 >
 > **Disclaimer:** This project is independently developed based on the publicly available iLink protocol for learning and research purposes only. It is not affiliated with or endorsed by the official iLink team. If any rights holder believes this project infringes upon their rights, please contact us via an Issue and we will take it down promptly upon confirmation.
