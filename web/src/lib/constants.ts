@@ -1,16 +1,16 @@
 export const SCOPE_DESCRIPTIONS: Record<string, string> = {
-  "message:write": "通过 Bot 发送微信消息",
-  "message:read": "接收 Bot 的微信消息事件",
-  "contact:read": "读取 Bot 的联系人列表",
-  "bot:read": "读取 Bot 的状态和基本信息",
+  "message:write": "通过机器人发送微信消息",
+  "message:read": "接收机器人的微信消息事件",
+  "contact:read": "读取机器人的联系人列表",
+  "bot:read": "读取机器人的状态和基本信息",
   "tools:write": "动态更新命令/工具",
 };
 
 export const SCOPES = [
-  { key: "message:write", label: "发送消息", description: "通过 Bot 发送微信消息", category: "write" as const },
-  { key: "message:read", label: "接收消息", description: "接收 Bot 的微信消息事件", category: "read" as const },
-  { key: "contact:read", label: "读取联系人", description: "读取 Bot 的联系人列表", category: "read" as const },
-  { key: "bot:read", label: "读取 Bot 信息", description: "读取 Bot 的状态和基本信息", category: "read" as const },
+  { key: "message:write", label: "发送消息", description: "通过机器人发送微信消息", category: "write" as const },
+  { key: "message:read", label: "接收消息", description: "接收机器人的微信消息事件", category: "read" as const },
+  { key: "contact:read", label: "读取联系人", description: "读取机器人的联系人列表", category: "read" as const },
+  { key: "bot:read", label: "读取机器人信息", description: "读取机器人的状态和基本信息", category: "read" as const },
   { key: "tools:write", label: "动态更新工具", description: "动态更新命令/工具", category: "write" as const },
 ];
 
@@ -25,3 +25,18 @@ export const EVENT_TYPES = [
   { key: "group.join", label: "入群", description: "有人加入群组事件" },
   { key: "group.leave", label: "退群", description: "有人退出群组事件" },
 ];
+
+/** 账号角色的中文名（接口返回的是英文标识） */
+export function roleLabel(role?: string): string {
+  switch (role) {
+    case "superadmin":
+      return "超级管理员";
+    case "admin":
+      return "管理员";
+    case "member":
+    case "user":
+      return "普通成员";
+    default:
+      return role ?? "";
+  }
+}

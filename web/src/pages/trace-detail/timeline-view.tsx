@@ -49,7 +49,7 @@ export function TimelineView({ spans, selectedSpanId, onSelectSpan }: TimelineVi
       {/* Time axis header */}
       <div className="flex border-b border-border/50 pb-1 mb-1">
         <div className="w-[220px] shrink-0 text-[10px] text-muted-foreground font-medium px-2">
-          Span
+          步骤
         </div>
         <div className="flex-1 relative h-5">
           {Array.from({ length: TICK_COUNT + 1 }).map((_, i) => {

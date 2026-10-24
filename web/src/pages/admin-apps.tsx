@@ -395,7 +395,7 @@ function AppEditForm({
         />
         <div className="flex gap-2">
           <Input
-            placeholder="图标（emoji）"
+            placeholder="图标（表情符号）"
             value={form.icon}
             onChange={(e) => setForm({ ...form, icon: e.target.value })}
             className="h-8 text-xs w-24"

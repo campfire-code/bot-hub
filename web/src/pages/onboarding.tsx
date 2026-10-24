@@ -107,7 +107,7 @@ export function OnboardingPage() {
                   <Sparkles className="h-5 w-5 text-primary" />
                   <div>
                     <p className="font-bold text-sm">AI 自动回复</p>
-                    <p className="text-xs text-muted-foreground">开启后，Bot 会自动回复收到的消息</p>
+                    <p className="text-xs text-muted-foreground">开启后，机器人会自动回复收到的消息</p>
                   </div>
                 </div>
                 <input
@@ -138,7 +138,7 @@ export function OnboardingPage() {
             </div>
             <h1 className="text-2xl font-bold">安装应用</h1>
             <p className="text-muted-foreground">
-              为你的账号安装应用，扩展 Bot 的能力。
+              为你的账号安装应用，扩展机器人的能力。
             </p>
           </div>
 

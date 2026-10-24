@@ -87,17 +87,17 @@ export function SpanDetail({ span, open, onClose }: SpanDetailProps) {
           <div className="space-y-5">
             {/* Error */}
             {displaySpan.status_message && (
-              <Section title="Error" icon={<XCircle className="w-3 h-3 text-destructive" />}>
+              <Section title="出错信息" icon={<XCircle className="w-3 h-3 text-destructive" />}>
                 <div className="rounded-md border border-destructive/30 bg-destructive/5 px-3 py-2 text-xs text-destructive whitespace-pre-wrap break-words font-mono">
                   {displaySpan.status_message}
                 </div>
               </Section>
             )}
             {/* Timing */}
-            <Section title="Timing" icon={<Clock className="w-3 h-3" />}>
+            <Section title="时间" icon={<Clock className="w-3 h-3" />}>
               <div className="grid grid-cols-2 gap-2 text-xs">
                 <div className="space-y-0.5">
-                  <div className="text-muted-foreground">Start</div>
+                  <div className="text-muted-foreground">开始</div>
                   <div className="font-mono">
                     {new Date(displaySpan.start_time).toLocaleTimeString([], {
                       hour: "2-digit",
@@ -107,7 +107,7 @@ export function SpanDetail({ span, open, onClose }: SpanDetailProps) {
                   </div>
                 </div>
                 <div className="space-y-0.5">
-                  <div className="text-muted-foreground">End</div>
+                  <div className="text-muted-foreground">结束</div>
                   <div className="font-mono">
                     {displaySpan.end_time
                       ? new Date(displaySpan.end_time).toLocaleTimeString([], {
@@ -119,11 +119,11 @@ export function SpanDetail({ span, open, onClose }: SpanDetailProps) {
                   </div>
                 </div>
                 <div className="space-y-0.5">
-                  <div className="text-muted-foreground">Duration</div>
+                  <div className="text-muted-foreground">耗时</div>
                   <div className="font-mono font-medium">{formatDuration(dur)}</div>
                 </div>
                 <div className="space-y-0.5">
-                  <div className="text-muted-foreground">Span ID</div>
+                  <div className="text-muted-foreground">步骤编号</div>
                   <div className="font-mono text-[10px] truncate">{displaySpan.span_id}</div>
                 </div>
               </div>
@@ -131,7 +131,7 @@ export function SpanDetail({ span, open, onClose }: SpanDetailProps) {
 
             {/* Token Usage */}
             {displaySpan.attributes?.["ai.tokens.total"] && (
-              <Section title="Token Usage" icon={<Coins className="w-3 h-3" />}>
+              <Section title="令牌用量" icon={<Coins className="w-3 h-3" />}>
                 {displaySpan.attributes["ai.model"] && (
                   <div className="text-xs text-muted-foreground mb-2">
                     模型: <span className="font-mono font-medium text-foreground">{displaySpan.attributes["ai.model"]}</span>
@@ -139,26 +139,26 @@ export function SpanDetail({ span, open, onClose }: SpanDetailProps) {
                 )}
                 <div className="grid grid-cols-3 gap-2 text-xs">
                   <div className="space-y-0.5">
-                    <div className="text-muted-foreground">Prompt</div>
+                    <div className="text-muted-foreground">输入（提示词）</div>
                     <div className="font-mono font-medium">{displaySpan.attributes["ai.tokens.prompt"] || "0"}</div>
                   </div>
                   <div className="space-y-0.5">
-                    <div className="text-muted-foreground">Completion</div>
+                    <div className="text-muted-foreground">输出</div>
                     <div className="font-mono font-medium">{displaySpan.attributes["ai.tokens.completion"] || "0"}</div>
                   </div>
                   <div className="space-y-0.5">
-                    <div className="text-muted-foreground">Total</div>
+                    <div className="text-muted-foreground">合计</div>
                     <div className="font-mono font-medium">{displaySpan.attributes["ai.tokens.total"]}</div>
                   </div>
                   {displaySpan.attributes["ai.tokens.cached"] && (
                     <div className="space-y-0.5">
-                      <div className="text-muted-foreground">Cached</div>
+                      <div className="text-muted-foreground">缓存命中</div>
                       <div className="font-mono font-medium">{displaySpan.attributes["ai.tokens.cached"]}</div>
                     </div>
                   )}
                   {displaySpan.attributes["ai.tokens.reasoning"] && (
                     <div className="space-y-0.5">
-                      <div className="text-muted-foreground">Reasoning</div>
+                      <div className="text-muted-foreground">推理</div>
                       <div className="font-mono font-medium">{displaySpan.attributes["ai.tokens.reasoning"]}</div>
                     </div>
                   )}
@@ -168,7 +168,7 @@ export function SpanDetail({ span, open, onClose }: SpanDetailProps) {
 
             {/* Attributes */}
             {attrs.length > 0 && (
-              <Section title="Attributes" icon={<Tag className="w-3 h-3" />}>
+              <Section title="属性" icon={<Tag className="w-3 h-3" />}>
                 <div className="rounded-md border bg-muted/30 overflow-hidden">
                   {attrs.map(([key, value], i) => (
                     <div
@@ -193,7 +193,7 @@ export function SpanDetail({ span, open, onClose }: SpanDetailProps) {
 
             {/* Events */}
             {events.length > 0 && (
-              <Section title="Events" icon={<Zap className="w-3 h-3" />}>
+              <Section title="事件" icon={<Zap className="w-3 h-3" />}>
                 <div className="space-y-2">
                   {events.map((evt, i) => (
                     <div key={i} className="rounded-md border bg-muted/30 px-3 py-2">

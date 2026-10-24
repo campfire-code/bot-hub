@@ -67,7 +67,7 @@ type SectionKey =
 
 function buildNavSections(app: any, inst?: any) {
   const items: { key: SectionKey; label: string; icon: any }[] = [
-    { key: "token", label: "Token & 使用", icon: Key },
+    { key: "token", label: "令牌 & 使用", icon: Key },
   ];
   if (parseTools(app?.tools).length > 0 || parseTools(inst?.tools).length > 0) {
     items.push({ key: "tools", label: "命令 / 工具", icon: Terminal });
@@ -155,14 +155,14 @@ export function InstallationDetailPage() {
     const trimmed = newHandle.trim();
     if (trimmed === handle) return;
     if (!trimmed) {
-      toast({ variant: "destructive", title: "Handle 不能为空" });
+      toast({ variant: "destructive", title: "触发名不能为空" });
       return;
     }
     try {
       await api.updateInstallation(inst.app_id, inst.id, { handle: trimmed });
       setHandle(trimmed);
       refreshInstallations();
-      toast({ title: "Handle 已保存" });
+      toast({ title: "触发名已保存" });
     } catch (e: any) {
       toast({ variant: "destructive", title: "保存失败", description: e.message });
     }
@@ -410,7 +410,7 @@ function InlineHandleEditor({ value, onSave }: { value: string; onSave: (v: stri
           onKeyDown={handleKeyDown}
           className="h-6 min-w-[8rem] max-w-[20rem] text-sm font-mono bg-transparent border-b border-primary outline-none px-0"
           placeholder="handle"
-          aria-label="编辑 handle"
+          aria-label="编辑触发名"
           autoFocus
         />
       </div>
@@ -423,9 +423,9 @@ function InlineHandleEditor({ value, onSave }: { value: string; onSave: (v: stri
       className={`text-sm font-mono transition-colors cursor-text hover:text-foreground ${
         value ? "text-muted-foreground" : "text-muted-foreground/50 italic"
       }`}
-      title="点击编辑 handle"
+      title="点击编辑触发名"
     >
-      {value ? `@${value}` : "添加 handle"}
+      {value ? `@${value}` : "添加触发名"}
     </button>
   );
 }
@@ -557,13 +557,13 @@ function TokenSection({ app, inst }: { app: any; inst: any }) {
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-base font-semibold">Token & 使用方式</h2>
-        <p className="text-sm text-muted-foreground mt-1">应用的 Token 和接入指南。</p>
+        <h2 className="text-base font-semibold">令牌 & 使用方式</h2>
+        <p className="text-sm text-muted-foreground mt-1">应用的令牌和接入指南。</p>
       </div>
 
       <Card>
         <CardHeader>
-          <CardTitle>Token</CardTitle>
+          <CardTitle>令牌</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="flex items-center gap-2 p-2 rounded-md border bg-background">
@@ -634,7 +634,7 @@ function TokenSection({ app, inst }: { app: any; inst: any }) {
             <details className="group">
               <summary className="text-sm font-medium cursor-pointer flex items-center gap-2 select-none">
                 <ArrowRight className="h-3.5 w-3.5 transition-transform group-open:rotate-90" />
-                WebSocket 连接
+                实时连接
               </summary>
               <pre className="mt-2 p-3 rounded-md bg-muted/30 border text-xs font-mono overflow-x-auto whitespace-pre-wrap">
                 {`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/bot/v1/ws?token=${token || "<your_token>"}`}
@@ -773,7 +773,7 @@ function ConfigSection({ inst, onUninstall, queryClient }: { inst: any; onUninst
       <Card>
         <CardHeader>
           <CardTitle>卸载应用</CardTitle>
-          <CardDescription>卸载后将删除此安装实例，Token 将失效，此操作不可撤销。</CardDescription>
+          <CardDescription>卸载后将删除此安装实例，令牌将失效，此操作不可撤销。</CardDescription>
         </CardHeader>
         <CardContent>
           <Button variant="destructive" size="sm" onClick={() => setShowUninstallDialog(true)}>
@@ -788,7 +788,7 @@ function ConfigSection({ inst, onUninstall, queryClient }: { inst: any; onUninst
           <DialogHeader>
             <DialogTitle>确认卸载</DialogTitle>
             <DialogDescription>
-              卸载后将删除此安装实例，Token 将失效，此操作不可撤销。
+              卸载后将删除此安装实例，令牌将失效，此操作不可撤销。
             </DialogDescription>
           </DialogHeader>
           <div className="flex justify-end gap-2 pt-4">
@@ -852,7 +852,7 @@ function EventLogsSection({
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold">事件投递日志</h2>
-          <p className="text-sm text-muted-foreground mt-1">Hub 推送到此应用的事件记录。</p>
+          <p className="text-sm text-muted-foreground mt-1">后台推送到此应用的事件记录。</p>
         </div>
         <Button
           variant="ghost"
@@ -875,7 +875,7 @@ function EventLogsSection({
       }) && (
         <div className="rounded-lg border border-orange-200 bg-orange-50 dark:border-orange-900 dark:bg-orange-950/30 p-3 text-xs text-muted-foreground space-y-1">
           <p className="font-medium text-orange-700 dark:text-orange-400">部分事件投递失败</p>
-          <p>如果应用来自远程市场，4xx 错误通常是远程应用服务器的配置问题。请联系应用开发者确认 Webhook 地址和权限配置是否正确。</p>
+          <p>如果应用来自远程市场，400 至 499 的状态码通常是远程应用服务器的配置问题。请联系应用开发者确认回调地址和权限配置是否正确。</p>
           {homepage ? (
             <a
               href={homepage}
@@ -905,7 +905,7 @@ function EventLogsSection({
               <TableRow>
                 <TableHead>时间</TableHead>
                 <TableHead>事件类型</TableHead>
-                <TableHead>Trace ID</TableHead>
+                <TableHead>链路编号</TableHead>
                 <TableHead>状态码</TableHead>
                 <TableHead>耗时</TableHead>
                 <TableHead>错误</TableHead>
@@ -997,7 +997,7 @@ function ApiLogsSection({ appId, instId }: { appId: string; instId: string }) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold">API 调用日志</h2>
-          <p className="text-sm text-muted-foreground mt-1">此应用通过 Bot API 发起的调用记录。</p>
+          <p className="text-sm text-muted-foreground mt-1">此应用通过机器人接口发起的调用记录。</p>
         </div>
         <Button
           variant="ghost"

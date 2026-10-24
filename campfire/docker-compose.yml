@@ -8,6 +8,7 @@ services:
       SECRET: ${SECRET:?请先把 .env.example 改名为 .env，并填写 SECRET}
       RP_ORIGIN: ${RP_ORIGIN:-http://localhost:9800}
       RP_ID: ${RP_ID:-localhost}
+      RP_NAME: 机器人管理后台 # 通行密钥弹窗里显示的名称
     ports:
       - "${HUB_PORT:-9800}:9800"
     volumes:

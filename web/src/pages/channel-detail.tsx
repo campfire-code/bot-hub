@@ -73,7 +73,7 @@ export function ChannelDetailPage() {
   async function handleDelete() {
     const ok = await confirm({
       title: "删除确认",
-      description: "确定要删除此转发规则？API Key 将失效。",
+      description: "确定要删除此转发规则？密钥将失效。",
       confirmText: "删除",
       variant: "destructive",
     });
@@ -177,7 +177,7 @@ export function ChannelDetailPage() {
             <Activity className="h-4 w-4" /> 概览
           </TabsTrigger>
           <TabsTrigger value="webhook" className="gap-2 px-4">
-            <Webhook className="h-4 w-4" /> Webhook
+            <Webhook className="h-4 w-4" /> 回调
           </TabsTrigger>
           <TabsTrigger value="ai" className="gap-2 px-4">
             <BotIcon className="h-4 w-4" /> AI 回复
@@ -220,7 +220,7 @@ export function ChannelDetailPage() {
             <Card className="border-border/50 bg-card/50">
               <CardHeader className="pb-3">
                 <CardTitle className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                  API Key
+                  密钥
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
@@ -242,7 +242,7 @@ export function ChannelDetailPage() {
                         navigator.clipboard
                           .writeText(channel.api_key)
                           .then(() => {
-                            toast({ title: "已复制 API Key" });
+                            toast({ title: "已复制密钥" });
                           })
                           .catch(() => {
                             toast({ variant: "destructive", title: "复制失败", description: "请手动选中复制" });
@@ -279,7 +279,7 @@ export function ChannelDetailPage() {
                     </span>
                   </div>
                   <div className="flex items-center justify-between text-xs">
-                    <span className="text-muted-foreground">Webhook 状态</span>
+                    <span className="text-muted-foreground">回调状态</span>
                     <Badge
                       variant={channel.webhook_config?.url ? "default" : "secondary"}
                       className="h-4 text-[9px]"
@@ -304,16 +304,16 @@ export function ChannelDetailPage() {
           <Card className="border-border/50">
             <CardHeader>
               <CardTitle className="text-sm">接入方式</CardTitle>
-              <CardDescription>通过 WebSocket 或 HTTP 接收消息。</CardDescription>
+              <CardDescription>通过实时连接或 HTTP 接收消息。</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-lg bg-muted/50 p-4 border font-mono text-[11px] space-y-4 leading-relaxed">
                 <div>
-                  <p className="text-primary font-bold mb-1">// WebSocket（实时推送）</p>
+                  <p className="text-primary font-bold mb-1">// 实时连接（实时推送）</p>
                   <code className="block bg-background p-2 rounded border">{`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/api/v1/channels/connect?key=${channel.api_key.slice(0, 12)}...`}</code>
                 </div>
                 <div>
-                  <p className="text-primary font-bold mb-1">// HTTP POST（发送回复）</p>
+                  <p className="text-primary font-bold mb-1">// HTTP 请求（发送回复）</p>
                   <code className="block bg-background p-2 rounded border">{`POST ${window.location.origin}/api/v1/channels/send?key=${channel.api_key.slice(0, 12)}...`}</code>
                 </div>
               </div>
@@ -380,7 +380,7 @@ function WebhookTab({
           script: form.script || undefined,
         },
       });
-      toast({ title: "Webhook 配置已更新" });
+      toast({ title: "回调配置已更新" });
       onRefresh();
     } catch (e: any) {
       toast({ variant: "destructive", title: "保存失败", description: e.message });
@@ -392,12 +392,12 @@ function WebhookTab({
     <div className="grid gap-6 md:grid-cols-2">
       <Card className="border-border/50">
         <CardHeader>
-          <CardTitle className="text-lg">Webhook 设置</CardTitle>
+          <CardTitle className="text-lg">回调设置</CardTitle>
           <CardDescription>消息将转发到此地址。</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <label className="text-xs font-medium">Webhook URL</label>
+            <label className="text-xs font-medium">回调地址</label>
             <Input
               placeholder="https://..."
               value={form.url}
@@ -577,7 +577,7 @@ function AITab({
                 />
               </div>
               <div className="space-y-1.5">
-                <label className="text-[11px] font-bold uppercase">API Key</label>
+                <label className="text-[11px] font-bold uppercase">密钥</label>
                 <Input
                   type="password"
                   placeholder="sk-..."
@@ -617,7 +617,7 @@ function AITab({
               />
             </div>
             <p className="text-[10px] text-muted-foreground italic flex-1">
-              较大的深度会消耗更多 Token，但对话连贯性更好。
+              较大的深度会消耗更多令牌，但对话连贯性更好。
             </p>
           </div>
         </CardContent>
@@ -680,7 +680,7 @@ function FilterTab({
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-1.5">
-          <label className="text-xs font-medium">用户白名单 (User ID)</label>
+          <label className="text-xs font-medium">用户白名单（用户编号）</label>
           <Input
             value={vals.uids}
             onChange={(e) => setVals({ ...vals, uids: e.target.value })}

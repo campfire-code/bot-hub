@@ -228,7 +228,7 @@ export function LoginPage() {
       }
       navigate("/dashboard");
     } catch (err: any) {
-      if (err.name !== "NotAllowedError") setError(err.message || "Passkey 登录失败");
+      if (err.name !== "NotAllowedError") setError(err.message || "通行密钥登录失败");
     }
     setLoading(false);
   }
@@ -245,7 +245,7 @@ export function LoginPage() {
           <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-primary text-primary-foreground shadow-lg shadow-primary/20 mb-4">
             <Shield className="h-6 w-6" />
           </div>
-          <h1 className="text-3xl font-extrabold tracking-tight">OpeniLink Hub</h1>
+          <h1 className="text-3xl font-extrabold tracking-tight">机器人管理后台</h1>
           <p className="text-sm text-muted-foreground font-medium">
             微信扫码，一键登录
           </p>
@@ -287,7 +287,7 @@ export function LoginPage() {
                     : !infoData
                       ? "打开微信，扫描二维码即可登录。"
                       : registrationEnabled
-                        ? "打开微信，扫描二维码即可登录。首次使用会自动创建账号并绑定 Bot。"
+                        ? "打开微信，扫描二维码即可登录。首次使用会自动创建账号并绑定机器人。"
                         : "打开微信，扫描二维码即可登录。仅限已绑定的微信账号。"}
                 </p>
               </div>
@@ -407,7 +407,7 @@ export function LoginPage() {
         </Card>
 
         <footer className="mt-8 text-center text-[11px] text-muted-foreground/50 font-medium">
-          &copy; 2026 OpeniLink Hub 项目保留所有权利。
+          界面基于开源项目 OpeniLink Hub 汉化，原项目版权归原作者所有。
         </footer>
       </div>
     </div>

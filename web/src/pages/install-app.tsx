@@ -267,7 +267,7 @@ export function InstallAppPage() {
                 value={handle}
                 onChange={(e) => setHandle(e.target.value)}
                 className="h-8 text-xs font-mono w-40"
-                placeholder="如 notify-prod"
+                placeholder="notify-prod"
               />
               <span className="text-xs text-muted-foreground font-mono shrink-0">
                 @{handle || "handle"}

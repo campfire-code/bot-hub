@@ -1,10 +1,9 @@
 import { Outlet, useNavigate, Link, useLocation } from "react-router-dom";
+import { roleLabel } from "@/lib/constants";
 import { useEffect, useRef, useState } from "react";
 import { useUser } from "@/hooks/use-auth";
 import { useBots } from "@/hooks/use-bots";
 import { useAuthStore } from "@/stores/auth-store";
-import logoBlack from "@/assets/logo-black.svg";
-import logoWhite from "@/assets/logo-white.svg";
 import iconBlack from "@/assets/icon-black.svg";
 import iconWhite from "@/assets/icon-white.svg";
 import {
@@ -75,10 +74,11 @@ function SidebarLogo() {
   const { open } = useSidebar();
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
-  return open ? (
-    <img src={isDark ? logoWhite : logoBlack} alt="OpeniLink" className="h-7 w-auto" />
-  ) : (
-    <img src={isDark ? iconWhite : iconBlack} alt="OpeniLink" className="size-7" />
+  return (
+    <span className="flex items-center gap-2">
+      <img src={isDark ? iconWhite : iconBlack} alt="" className="size-7 shrink-0" />
+      {open && <span className="truncate text-base font-bold tracking-tight">机器人管理后台</span>}
+    </span>
   );
 }
 
@@ -481,7 +481,7 @@ export function Layout() {
                     <div className="grid flex-1 text-left text-sm leading-tight ml-1">
                       <span className="truncate font-semibold">{user.username}</span>
                       <span className="truncate text-[10px] text-muted-foreground font-medium uppercase">
-                        {user.role}
+                        {roleLabel(user.role)}
                       </span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4 opacity-50" />

@@ -164,7 +164,7 @@ export function AdminOverviewPage() {
             <div className="p-4 rounded-2xl bg-muted/20 border border-border/50 flex items-center gap-4">
               <Globe className="h-5 w-5 text-muted-foreground" />
               <div>
-                <p className="text-xs font-bold uppercase text-muted-foreground">WASM Runtime</p>
+                <p className="text-xs font-bold uppercase text-muted-foreground">脚本运行环境（WASM）</p>
                 <p className="text-sm font-bold">就绪</p>
               </div>
             </div>
@@ -205,7 +205,7 @@ export function AdminOverviewPage() {
                   />
                 </div>
                 <div className="space-y-1.5">
-                  <Label className="text-xs font-bold uppercase text-muted-foreground">API Key</Label>
+                  <Label className="text-xs font-bold uppercase text-muted-foreground">密钥</Label>
                   <Input
                     type="password"
                     value={effectiveAIConfig?.api_key || ""}
@@ -297,7 +297,7 @@ export function AdminOverviewPage() {
                 </div>
                 <div className="space-y-1.5">
                   <Label className="text-xs font-bold uppercase text-muted-foreground">
-                    自定义 Headers
+                    自定义请求头
                   </Label>
                   <p className="text-xs text-muted-foreground">
                     调用 AI 接口时附加的 HTTP 请求头，例如 OpenRouter 归属信息。
@@ -323,7 +323,7 @@ export function AdminOverviewPage() {
                             <div key={i} className="flex gap-2 items-center">
                               <Input
                                 className="flex-1"
-                                placeholder="Header Name"
+                                placeholder="请求头名称"
                                 value={key}
                                 onChange={(e) => {
                                   const next = [...entries];
@@ -333,7 +333,7 @@ export function AdminOverviewPage() {
                               />
                               <Input
                                 className="flex-1"
-                                placeholder="Value"
+                                placeholder="请求头的值"
                                 value={val}
                                 onChange={(e) => {
                                   const next = [...entries];
@@ -358,7 +358,7 @@ export function AdminOverviewPage() {
                             onClick={() => sync([...entries, ["", ""]])}
                           >
                             <Plus className="h-3.5 w-3.5 mr-1" />
-                            添加 Header
+                            添加请求头
                           </Button>
                         </>
                       );
@@ -433,7 +433,7 @@ function RegistrationConfigCard() {
             <div>
               <p className="text-sm font-bold">开放注册</p>
               <p className="text-xs text-muted-foreground">
-                关闭后，新用户无法通过密码注册、扫码登录或 OAuth 创建账号。管理员仍可手动创建用户。
+                关闭后，新用户无法通过密码注册、扫码登录或第三方登录创建账号。管理员仍可手动创建用户。
               </p>
             </div>
           </div>
@@ -471,7 +471,7 @@ function RegistryConfigCard() {
     try {
       const newEnabled = registryConfig?.enabled === "true" ? "false" : "true";
       await setRegistryConfigMutation.mutateAsync({ enabled: newEnabled });
-      toast({ title: "Registry 配置已保存" });
+      toast({ title: "应用源配置已保存" });
     } catch (e: any) {
       toast({ variant: "destructive", title: "保存失败", description: e.message });
     }
@@ -483,7 +483,7 @@ function RegistryConfigCard() {
       await createRegistryMutation.mutateAsync({ name: newName.trim(), url: newUrl.trim() });
       setNewName("");
       setNewUrl("");
-      toast({ title: "Registry 已添加" });
+      toast({ title: "应用源已添加" });
     } catch (e: any) {
       toast({ variant: "destructive", title: "添加失败", description: e.message });
     }
@@ -492,7 +492,7 @@ function RegistryConfigCard() {
   async function handleImportDefault() {
     try {
       await createRegistryMutation.mutateAsync({ name: "OpeniLink Hub", url: "https://hub.openilink.com" });
-      toast({ title: "已添加官方 Registry" });
+      toast({ title: "已添加官方应用源" });
     } catch (e: any) {
       toast({ variant: "destructive", title: "添加失败", description: e.message });
     }
@@ -509,7 +509,7 @@ function RegistryConfigCard() {
   async function handleDeleteRegistry(reg: any) {
     const ok = await confirm({
       title: "删除确认",
-      description: `确定删除 Registry "${reg.name}"？`,
+      description: `确定删除应用源 "${reg.name}"？`,
       confirmText: "删除",
       variant: "destructive",
     });
@@ -526,18 +526,18 @@ function RegistryConfigCard() {
     <Card className="border-border/50 bg-card/50">
       {ConfirmDialog}
       <CardHeader>
-        <CardTitle>Registry 配置</CardTitle>
-        <CardDescription>管理应用市场 Registry 来源。</CardDescription>
+        <CardTitle>应用源配置</CardTitle>
+        <CardDescription>管理应用市场的应用源（应用列表的来源）。</CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Expose toggle */}
         <div className="flex items-center justify-between p-3 rounded-xl bg-muted/20 border border-border/50">
           <div>
-            <p className="text-sm font-medium">对外暴露 Registry</p>
-            <p className="text-xs text-muted-foreground">允许其他 Hub 从此实例拉取应用</p>
+            <p className="text-sm font-medium">对外暴露应用源</p>
+            <p className="text-xs text-muted-foreground">允许其他后台从此实例拉取应用</p>
           </div>
           <Switch
-            aria-label="对外暴露 Registry"
+            aria-label="对外暴露应用源"
             checked={registryConfig?.enabled === "true"}
             onCheckedChange={handleToggleExpose}
             disabled={setRegistryConfigMutation.isPending}
@@ -547,11 +547,11 @@ function RegistryConfigCard() {
         {/* Registry Sources */}
         <div className="space-y-2">
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-            Registry 来源
+            应用源来源
           </p>
           {registries.length === 0 ? (
             <div className="flex items-center justify-between p-3 rounded-lg border border-dashed bg-muted/10">
-              <p className="text-sm text-muted-foreground">暂无 Registry 来源</p>
+              <p className="text-sm text-muted-foreground">暂无应用源来源</p>
               {window.location.origin !== "https://hub.openilink.com" && (
                 <Button size="sm" onClick={handleImportDefault} disabled={adding}>
                   <Globe className="w-3.5 h-3.5 mr-1" /> 一键导入官方源
@@ -597,7 +597,7 @@ function RegistryConfigCard() {
         {/* Add Registry */}
         <div className="space-y-2 pt-2 border-t">
           <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
-            添加 Registry
+            添加应用源
           </p>
           <div className="flex gap-2">
             <Input
@@ -668,7 +668,7 @@ function OIDCConfigCard() {
     const normalizedSlug = slug.trim();
     if (!normalizedSlug || !issuerUrl.trim() || !clientId.trim()) return;
     if (!isEditing && providers.some((p: any) => p.slug === normalizedSlug)) {
-      toast({ variant: "destructive", title: "Slug 已存在", description: "请使用编辑功能修改。" });
+      toast({ variant: "destructive", title: "标识已存在", description: "请使用编辑功能修改。" });
       return;
     }
     try {
@@ -813,7 +813,7 @@ function OIDCConfigCard() {
           </div>
           <div className="grid gap-2 sm:grid-cols-2">
             <Input
-              placeholder="标识 (slug, 如 pocket-id)"
+              placeholder="标识（如 pocket-id）"
               value={slug}
               onChange={(e) => setSlug(e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, ""))}
               disabled={isEditing}
@@ -825,26 +825,26 @@ function OIDCConfigCard() {
             />
           </div>
           <Input
-            placeholder="Issuer URL (如 https://auth.example.com)"
+            placeholder="签发方地址（Issuer URL，如 https://auth.example.com）"
             value={issuerUrl}
             onChange={(e) => setIssuerUrl(e.target.value)}
             disabled={isEditing}
           />
           <div className="grid gap-2 sm:grid-cols-2">
             <Input
-              placeholder="Client ID"
+              placeholder="客户端编号（Client ID）"
               value={clientId}
               onChange={(e) => setClientId(e.target.value)}
             />
             <Input
               type="password"
-              placeholder={isEditing ? "Client Secret (留空保持不变)" : "Client Secret"}
+              placeholder={isEditing ? "客户端密钥（Client Secret，留空保持不变）" : "客户端密钥（Client Secret）"}
               value={clientSecret}
               onChange={(e) => setClientSecret(e.target.value)}
             />
           </div>
           <Input
-            placeholder="Scopes (默认: openid profile email)"
+            placeholder="授权范围（Scopes，默认：openid profile email）"
             value={scopes}
             onChange={(e) => setScopes(e.target.value)}
           />

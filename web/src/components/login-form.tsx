@@ -15,8 +15,8 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome back</CardTitle>
-          <CardDescription>Login with your Apple or Google account</CardDescription>
+          <CardTitle className="text-xl">欢迎回来</CardTitle>
+          <CardDescription>使用苹果或谷歌账号登录</CardDescription>
         </CardHeader>
         <CardContent>
           <form>
@@ -29,7 +29,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                       fill="currentColor"
                     />
                   </svg>
-                  Login with Apple
+                  使用苹果账号登录
                 </Button>
                 <Button variant="outline" type="button">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -38,29 +38,29 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
                       fill="currentColor"
                     />
                   </svg>
-                  Login with Google
+                  使用谷歌账号登录
                 </Button>
               </Field>
               <FieldSeparator className="*:data-[slot=field-separator-content]:bg-card">
-                Or continue with
+                或者
               </FieldSeparator>
               <Field>
-                <FieldLabel htmlFor="email">Email</FieldLabel>
+                <FieldLabel htmlFor="email">邮箱</FieldLabel>
                 <Input id="email" type="email" placeholder="m@example.com" required />
               </Field>
               <Field>
                 <div className="flex items-center">
-                  <FieldLabel htmlFor="password">Password</FieldLabel>
+                  <FieldLabel htmlFor="password">密码</FieldLabel>
                   <a href="#" className="ml-auto text-sm underline-offset-4 hover:underline">
-                    Forgot your password?
+                    忘记密码？
                   </a>
                 </div>
                 <Input id="password" type="password" required />
               </Field>
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit">登录</Button>
                 <FieldDescription className="text-center">
-                  Don&apos;t have an account? <a href="#">Sign up</a>
+                  还没有账号？<a href="#">立即注册</a>
                 </FieldDescription>
               </Field>
             </FieldGroup>
@@ -68,8 +68,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a> and{" "}
-        <a href="#">Privacy Policy</a>.
+        继续即表示你同意<a href="#">服务条款</a>和<a href="#">隐私政策</a>。
       </FieldDescription>
     </div>
   );

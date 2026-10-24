@@ -1,4 +1,5 @@
 import { Users, MoreVertical, Check, X, Trash2 } from "lucide-react";
+import { roleLabel } from "@/lib/constants";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -70,7 +71,7 @@ export function AdminUsersPage() {
                     <TableCell className="font-bold">{u.username}</TableCell>
                     <TableCell>
                       <Badge variant="secondary" className="uppercase text-[9px] font-black">
-                        {u.role}
+                        {roleLabel(u.role)}
                       </Badge>
                     </TableCell>
                     <TableCell>

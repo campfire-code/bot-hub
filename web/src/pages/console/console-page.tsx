@@ -439,7 +439,7 @@ export function ConsolePage() {
                     }
                   }
                 }}
-                placeholder={canSend ? "输入消息，Enter 发送..." : "无法发送"}
+                placeholder={canSend ? "输入消息，回车发送..." : "无法发送"}
                 disabled={!canSend || sending}
                 className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 py-1.5 px-1"
               />

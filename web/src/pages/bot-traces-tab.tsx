@@ -41,7 +41,7 @@ export function BotTracesTab({ botId }: { botId: string }) {
               <TableHead className="w-[100px]">状态</TableHead>
               <TableHead>发送者</TableHead>
               <TableHead className="hidden md:table-cell">核心事件</TableHead>
-              <TableHead className="text-right">Tokens</TableHead>
+              <TableHead className="text-right">令牌</TableHead>
               <TableHead className="text-right">耗时</TableHead>
               <TableHead className="text-right">时间</TableHead>
               <TableHead className="w-8" />
@@ -69,7 +69,7 @@ export function BotTracesTab({ botId }: { botId: string }) {
             ) : (
               rootSpans.map((root) => {
                 const dur = durationMs(root);
-                const sender = root.attributes?.["message.sender"] || "System";
+                const sender = root.attributes?.["message.sender"] || "系统";
                 const content = root.attributes?.["message.content"] || root.name;
 
                 return (

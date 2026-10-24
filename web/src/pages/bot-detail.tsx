@@ -383,7 +383,7 @@ export function BotDetailPage() {
                   </span>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" className="text-xs space-y-1">
-                  <p>微信 24 小时窗口目前不能静默自动续期，Hub 只会在到期前提醒你回一条消息。</p>
+                  <p>微信 24 小时窗口目前不能静默自动续期，后台只会在到期前提醒你回一条消息。</p>
                   <p>
                     上次消息:{" "}
                     {bot.last_msg_at ? new Date(bot.last_msg_at * 1000).toLocaleString() : "无"}

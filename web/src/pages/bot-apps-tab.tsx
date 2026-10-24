@@ -299,20 +299,20 @@ function InstallDialog({
                   ) : null}
 
                   {scopes.length === 0 && tools.length === 0 && events.length === 0 ? (
-                    <p className="text-sm text-muted-foreground">接收 @mention 消息并执行响应。</p>
+                    <p className="text-sm text-muted-foreground">接收 @提及 消息并执行响应。</p>
                   ) : null}
                 </div>
 
                 <div className="space-y-3 pt-2 border-t">
                   <div className="space-y-1.5">
                     <label htmlFor="bot-install-handle" className="text-xs font-medium">
-                      Handle
+                      触发名
                     </label>
                     <Input
                       id="bot-install-handle"
                       value={handle}
                       onChange={(e) => setHandle(e.target.value)}
-                      placeholder="如 notify-prod"
+                      placeholder="notify-prod"
                       className="h-9 font-mono"
                     />
                     <p className="text-[10px] text-muted-foreground">

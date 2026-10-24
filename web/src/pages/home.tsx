@@ -12,11 +12,11 @@ const features = [
   {
     icon: Cable,
     title: "消息转发",
-    desc: "通过 @提及 将消息转发到不同服务，支持 WebSocket 和 HTTP API",
+    desc: "通过 @提及 将消息转发到不同服务，支持实时连接和 HTTP 接口",
   },
   {
     icon: Webhook,
-    title: "Webhook 推送",
+    title: "回调推送",
     desc: "收到消息自动推送到你的服务，支持自定义脚本中间件",
   },
   { icon: Zap, title: "AI 自动回复", desc: "内置 OpenAI 兼容的 AI 回复，按规则独立开关" },
@@ -64,7 +64,7 @@ export function HomePage() {
               : "border border-white/5 bg-[linear-gradient(to_bottom,rgba(255,255,255,0.05),rgba(255,255,255,0.015))] py-3 shadow-[0_10px_30px_rgba(0,0,0,0.16)] backdrop-blur-md",
           )}
         >
-          <span className="text-base font-semibold tracking-tight">OpeniLink Hub</span>
+          <span className="text-base font-semibold tracking-tight">机器人管理后台</span>
           <div className="flex items-center gap-3">
             {loggedIn ? (
               <Link to="/dashboard">
@@ -92,9 +92,9 @@ export function HomePage() {
       <main className="relative z-10 flex-1 space-y-8 pb-20 sm:space-y-10 sm:pb-24">
         {/* Hero */}
         <section className="mx-auto max-w-3xl px-6 py-20 text-center sm:px-8 sm:py-24 lg:py-28">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">OpeniLink Hub</h1>
+          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">机器人管理后台</h1>
           <p className="mt-5 text-base leading-8 text-muted-foreground sm:text-lg">
-            开源的微信 Bot 管理与消息中继平台。连接你的微信，通过 WebSocket、HTTP API 或 Webhook
+            开源的微信机器人管理与消息中继平台。连接你的微信，通过实时连接、HTTP 接口 或回调
             接收和发送消息。
           </p>
           <div className="mt-8 flex justify-center gap-4 sm:mt-10">
@@ -137,17 +137,17 @@ export function HomePage() {
               {
                 step: "1",
                 title: "扫码登录",
-                desc: "在 Hub 中扫码登录你的微信账号",
+                desc: "在后台中扫码登录你的微信账号",
               },
               {
                 step: "2",
                 title: "创建转发规则",
-                desc: "创建转发规则，每条规则有独立的 API Key",
+                desc: "创建转发规则，每条规则有独立的密钥",
               },
               {
                 step: "3",
                 title: "接入集成",
-                desc: "通过 WebSocket 实时监听，HTTP API 轮询，或 Webhook 推送接收消息",
+                desc: "通过实时连接实时监听，HTTP 接口 轮询，或回调推送接收消息",
               },
             ].map((s) => (
               <div key={s.step} className="flex items-start gap-4 sm:gap-5">
@@ -171,7 +171,7 @@ export function HomePage() {
           rel="noopener"
           className="hover:text-primary"
         >
-          OpeniLink Hub
+          机器人管理后台
         </a>
         {" · "}开源微信消息平台
       </footer>

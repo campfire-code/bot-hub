@@ -379,7 +379,7 @@ export function AdminReviewsPage() {
 
                   {selected.config_schema && (
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">Config Schema</p>
+                      <p className="text-xs text-muted-foreground mb-1">配置结构</p>
                       <pre className="text-[10px] font-mono bg-muted/40 rounded p-2 max-h-32 overflow-auto whitespace-pre-wrap">
                         {typeof selected.config_schema === "string" ? selected.config_schema : JSON.stringify(selected.config_schema, null, 2)}
                       </pre>
@@ -388,7 +388,7 @@ export function AdminReviewsPage() {
 
                   {selected.readme && (
                     <div>
-                      <p className="text-xs text-muted-foreground mb-1">README</p>
+                      <p className="text-xs text-muted-foreground mb-1">说明文档</p>
                       <pre className="text-xs text-muted-foreground whitespace-pre-wrap font-mono bg-muted/40 rounded-lg p-3 max-h-60 overflow-y-auto">
                         {selected.readme}
                       </pre>

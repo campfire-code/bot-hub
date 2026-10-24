@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { roleLabel } from "@/lib/constants";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Button } from "../components/ui/button";
 import { Input } from "../components/ui/input";
@@ -119,7 +120,7 @@ export function SettingsPage() {
                       variant="secondary"
                       className="uppercase text-[10px] tracking-wider font-bold"
                     >
-                      {user?.role}
+                      {roleLabel(user?.role)}
                     </Badge>
                   </div>
                 </div>
@@ -514,7 +515,7 @@ function PasskeySection() {
       await refetchPasskeys();
       setSuccess("通行密钥注册成功！点击名称可修改。建议退出后尝试使用通行密钥登录以确认可用。");
     } catch (err: any) {
-      if (err.name !== "NotAllowedError") setError(err.message || "Passkey 注册失败");
+      if (err.name !== "NotAllowedError") setError(err.message || "通行密钥注册失败");
     }
     setAdding(false);
   }
@@ -529,7 +530,7 @@ function PasskeySection() {
             <Badge className="bg-primary/10 text-primary border-none text-[9px]">推荐</Badge>
           </CardTitle>
           <CardDescription>
-            使用生物识别（指纹、Face ID）或安全密钥进行登录，更安全、更快捷。
+            使用生物识别（指纹、面容识别）或安全密钥进行登录，更安全、更快捷。
           </CardDescription>
         </div>
         <Button size="sm" onClick={handleAdd} disabled={adding || !supportsPasskey} className="h-9" title={supportsPasskey ? undefined : "需要 HTTPS 安全连接才能使用通行密钥"}>
@@ -538,7 +539,7 @@ function PasskeySection() {
           ) : (
             <Plus className="mr-2 h-4 w-4" />
           )}
-          注册 Passkey
+          注册通行密钥
         </Button>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -568,8 +569,8 @@ function PasskeySection() {
             </p>
             <ol className="list-decimal ml-4 space-y-1.5 leading-relaxed">
               <li>打开 <b>设置 &gt; 指纹、面部与密码 &gt; 智能密码管理</b>，<b>关闭</b>"自动填充密码与通行密钥"</li>
-              <li>打开 <b>设置 &gt; 更多设置 &gt; 语言与输入法 &gt; 密码与账号</b>，将"首选服务"设为 <b>Google</b> 或 <b>小米智能密码管理</b></li>
-              <li>确保 Google Play 服务已更新到最新版本</li>
+              <li>打开 <b>设置 &gt; 更多设置 &gt; 语言与输入法 &gt; 密码与账号</b>，将"首选服务"设为 <b>谷歌密码管理</b> 或 <b>小米智能密码管理</b></li>
+              <li>确保谷歌应用商店服务已更新到最新版本</li>
             </ol>
             <p className="text-[10px] text-muted-foreground">设置完成后，点击下方按钮继续注册。如果注册后无法登录，请检查密码管理器中是否有保存的通行密钥。</p>
             <div className="flex gap-2 pt-1">
@@ -586,7 +587,7 @@ function PasskeySection() {
         {passkeys.length === 0 ? (
           <div className="flex flex-col items-center justify-center py-8 text-center border rounded-xl bg-muted/5 border-dashed">
             <Fingerprint className="h-10 w-10 text-muted-foreground opacity-20 mb-3" />
-            <p className="text-sm text-muted-foreground">您尚未绑定任何 Passkey 设备</p>
+            <p className="text-sm text-muted-foreground">您尚未绑定任何通行密钥设备</p>
           </div>
         ) : (
           <div className="grid gap-3 sm:grid-cols-2">
@@ -617,7 +618,7 @@ function PasskeySection() {
                   onClick={async () => {
                     const ok = await confirm({
                       title: "删除确认",
-                      description: "确定要删除此 Passkey 吗？",
+                      description: "确定要删除此通行密钥吗？",
                       confirmText: "删除",
                       variant: "destructive",
                     });

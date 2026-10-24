@@ -34,7 +34,7 @@ export function TraceDetailPage() {
       if (fetchIdRef.current !== id) return;
       setSpans(data || []);
     } catch (e) {
-      console.error("Failed to load trace:", e);
+      console.error("加载链路失败：", e);
       if (fetchIdRef.current !== id) return;
       setSpans([]);
     } finally {
@@ -89,7 +89,7 @@ export function TraceDetailPage() {
               </span>
               {rootSpan.attributes?.["ai.tokens.total"] && (
                 <Badge variant="outline" className="text-[10px] h-4 px-1.5 leading-none font-mono">
-                  {rootSpan.attributes["ai.tokens.total"]} tokens
+                  {rootSpan.attributes["ai.tokens.total"]} 令牌
                 </Badge>
               )}
             </div>
@@ -100,7 +100,7 @@ export function TraceDetailPage() {
             {traceId}
           </span>
           <Badge variant="secondary" className="text-[10px] h-5 font-mono">
-            {spans.length} spans
+            {spans.length} 个步骤
           </Badge>
           <Button variant="outline" size="sm" onClick={load} disabled={loading} className="h-8">
             <RefreshCw className={`w-3.5 h-3.5 mr-1.5 ${loading ? "animate-spin" : ""}`} />
@@ -124,10 +124,10 @@ export function TraceDetailPage() {
         <Tabs defaultValue="timeline" className="w-full">
           <TabsList>
             <TabsTrigger value="timeline" className="text-xs">
-              Timeline
+              时间线
             </TabsTrigger>
             <TabsTrigger value="flow" className="text-xs">
-              Flow
+              流程图
             </TabsTrigger>
           </TabsList>
 

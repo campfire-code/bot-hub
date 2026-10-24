@@ -54,7 +54,7 @@ const NAV_SECTIONS = [
     items: [
       { key: "event-subscriptions" as SectionKey, label: "事件订阅", icon: Radio },
       { key: "commands" as SectionKey, label: "命令 / 工具", icon: Terminal },
-      { key: "oauth-permissions" as SectionKey, label: "OAuth 权限", icon: Shield },
+      { key: "oauth-permissions" as SectionKey, label: "授权范围", icon: Shield },
     ],
   },
 ];
@@ -247,7 +247,7 @@ function BasicInfoSection({ app, onUpdate, backPath }: { app: any; onUpdate: () 
               disabled={!!app.registry}
             />
             <Input
-              placeholder="图标 (emoji 或 URL)"
+              placeholder="图标（表情符号或网址）"
               value={form.icon}
               onChange={(e) => setForm((f) => ({ ...f, icon: e.target.value }))}
               className="h-8 text-xs"
@@ -268,14 +268,14 @@ function BasicInfoSection({ app, onUpdate, backPath }: { app: any; onUpdate: () 
               disabled={!!app.registry}
             />
             <textarea
-              placeholder="说明文档 (Readme)"
+              placeholder="说明文档"
               value={form.readme}
               onChange={(e) => setForm((f) => ({ ...f, readme: e.target.value }))}
               className="w-full min-h-[80px] px-3 py-2 rounded-md border bg-background text-xs font-mono resize-y"
               disabled={!!app.registry}
             />
             <textarea
-              placeholder="使用指南 (Guide)"
+              placeholder="使用指南"
               value={form.guide}
               onChange={(e) => setForm((f) => ({ ...f, guide: e.target.value }))}
               className="w-full min-h-[80px] px-3 py-2 rounded-md border bg-background text-xs font-mono resize-y"
@@ -303,7 +303,7 @@ function BasicInfoSection({ app, onUpdate, backPath }: { app: any; onUpdate: () 
             <div className="flex items-center gap-2">
               <Badge variant="outline">来自应用市场</Badge>
               <span className="text-xs text-muted-foreground">
-                此应用来自应用市场 Registry，配置不可编辑。
+                此应用来自应用市场应用源，配置不可编辑。
               </span>
             </div>
           </CardContent>
@@ -334,7 +334,7 @@ function BasicInfoSection({ app, onUpdate, backPath }: { app: any; onUpdate: () 
           <CardHeader>
             <CardTitle>使用说明</CardTitle>
             <CardDescription>
-              此应用为 Integration 类型，使用 Token 进行 API 调用。请在安装管理中查看 Token。
+              此应用为集成类型，使用令牌进行 API 调用。请在安装管理中查看令牌。
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-2 text-xs font-mono text-muted-foreground">
@@ -342,7 +342,7 @@ function BasicInfoSection({ app, onUpdate, backPath }: { app: any; onUpdate: () 
             <pre className="p-2 rounded-md bg-muted/30 border overflow-x-auto whitespace-pre-wrap">{`curl -X POST ${window.location.origin}/bot/v1/message/send \\
   -H "Authorization: Bearer <your_token>" \\
   -d '{"content":"hello"}'`}</pre>
-            <p className="font-sans text-xs font-medium text-foreground">WebSocket 连接</p>
+            <p className="font-sans text-xs font-medium text-foreground">实时连接</p>
             <pre className="p-2 rounded-md bg-muted/30 border overflow-x-auto whitespace-pre-wrap">{`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/bot/v1/ws?token=<your_token>`}</pre>
           </CardContent>
         </Card>
@@ -353,15 +353,15 @@ function BasicInfoSection({ app, onUpdate, backPath }: { app: any; onUpdate: () 
         <CardHeader>
           <CardTitle>应用凭证</CardTitle>
           <CardDescription>
-            这些凭证用于你的 App 与 Hub 之间的安全通信。请妥善保管，不要泄露。
+            这些凭证用于你的 App 与后台之间的安全通信。请妥善保管，不要泄露。
           </CardDescription>
         </CardHeader>
         <CardContent>
           {app.webhook_secret ? (
             <SecretField
-              label="Webhook Secret"
+              label="回调密钥"
               value={app.webhook_secret}
-              description="Hub 使用此密钥对推送事件签名，App 用它验证请求来源"
+              description="后台使用此密钥对推送事件签名，App 用它验证请求来源"
             />
           ) : (
             <p className="text-xs text-muted-foreground italic">凭证仅对 App 所有者可见。</p>
@@ -391,9 +391,9 @@ function IntegrationTokenGuide({ app }: { app: any }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Integration Token 使用指南</CardTitle>
+        <CardTitle>集成令牌使用指南</CardTitle>
         <CardDescription>
-          此应用为 Integration 类型。安装实例的 Token 可在「安装管理」中查看。
+          此应用为集成类型。安装实例的令牌可在「安装管理」中查看。
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-3 text-xs">
@@ -404,7 +404,7 @@ function IntegrationTokenGuide({ app }: { app: any }) {
   -d '{"content":"hello"}'`}</pre>
         </div>
         <div className="space-y-1">
-          <p className="font-medium text-foreground">WebSocket 连接</p>
+          <p className="font-medium text-foreground">实时连接</p>
           <pre className="p-2 rounded-md bg-muted/30 border font-mono overflow-x-auto whitespace-pre-wrap">{`${window.location.protocol === "https:" ? "wss" : "ws"}://${window.location.host}/bot/v1/ws?token={token}`}</pre>
         </div>
       </CardContent>
@@ -534,7 +534,7 @@ function InstallAppSection({ appId }: { appId: string }) {
       <div>
         <h2 className="text-base font-semibold">安装管理</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          所有安装了此应用的账号。每个安装实例有独立的 app_token 和 handle。
+          所有安装了此应用的账号。每个安装实例有独立的 安装令牌和触发名。
         </p>
       </div>
 
@@ -567,13 +567,13 @@ function InstallAppSection({ appId }: { appId: string }) {
               </div>
               <div className="flex-1 space-y-1">
                 <label htmlFor="install-handle-input" className="text-xs text-muted-foreground">
-                  Handle
+                  触发名
                 </label>
                 <Input
                   id="install-handle-input"
                   value={handle}
                   onChange={(e) => setHandle(e.target.value)}
-                  placeholder="如 notify"
+                  placeholder="notify"
                   className="h-8 text-xs font-mono"
                 />
               </div>
@@ -810,7 +810,7 @@ function EventSubscriptionsSection({ app, onUpdate }: { app: any; onUpdate: () =
       <Card>
         <CardHeader>
           <CardTitle>转发地址</CardTitle>
-          <CardDescription>Bot 收到的消息将 POST 到此地址</CardDescription>
+          <CardDescription>机器人收到的消息将以 HTTP 请求推送到此地址</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
           <div className="flex gap-2">
@@ -967,7 +967,7 @@ function ToolsEditor({ app, onUpdate }: { app: any; onUpdate: () => void }) {
         <div>
           <h2 className="text-base font-semibold">命令 / 工具</h2>
           <p className="text-sm text-muted-foreground mt-1">
-            定义应用的工具和命令，用户通过 /command 触发。
+            定义应用的工具和命令，用户通过斜杠命令触发。
           </p>
         </div>
         <div className="flex gap-2">
@@ -990,7 +990,7 @@ function ToolsEditor({ app, onUpdate }: { app: any; onUpdate: () => void }) {
           <CardHeader>
             <CardTitle>从 MCP 服务器导入</CardTitle>
             <CardDescription>
-              输入 MCP 服务器的 Streamable HTTP 地址，自动发现并导入工具定义。导入会替换当前所有工具。
+              输入 MCP 服务器的 流式 HTTP 地址，自动发现并导入工具定义。导入会替换当前所有工具。
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
@@ -1002,7 +1002,7 @@ function ToolsEditor({ app, onUpdate }: { app: any; onUpdate: () => void }) {
               aria-label="MCP 服务器地址"
             />
             <textarea
-              placeholder="自定义请求头（可选，每行一个，格式 Key: Value）"
+              placeholder="自定义请求头（可选，每行一个，格式 名称: 值）"
               value={mcpHeaders}
               onChange={(e) => setMcpHeaders(e.target.value)}
               rows={2}
@@ -1062,7 +1062,7 @@ function ToolsEditor({ app, onUpdate }: { app: any; onUpdate: () => void }) {
                   className="h-7 text-xs"
                 />
                 <textarea
-                  placeholder="参数 JSON Schema（可选）"
+                  placeholder="参数结构（JSON 格式，可选）"
                   value={tool.parameters}
                   onChange={(e) => updateTool(i, "parameters", e.target.value)}
                   rows={2}
@@ -1118,9 +1118,9 @@ function OAuthPermissionsSection({ app, onUpdate }: { app: any; onUpdate: () => 
   return (
     <div className="space-y-6">
       <div>
-        <h2 className="text-base font-semibold">OAuth 权限</h2>
+        <h2 className="text-base font-semibold">授权范围</h2>
         <p className="text-sm text-muted-foreground mt-1">
-          管理应用通过 Bot API 调用时所需的权限范围。
+          管理应用通过机器人接口调用时所需的权限范围。
         </p>
       </div>
 
